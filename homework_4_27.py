@@ -7,7 +7,7 @@ GET/users/:user/repos,调用时，需要把：user替换为实际
 class Chain(object):
 
     def __init__(self, path=''):
-        print(path)
+        # print(path)
         self._path = path
 
     def __getattr__(self, path):
@@ -15,6 +15,9 @@ class Chain(object):
 
     def __str__(self):
         return self._path
+
+    def __call__(self, name):
+        return Chain('%s/%s' % (self._path, name))
 
 
 print(Chain().users('michael').repos)
